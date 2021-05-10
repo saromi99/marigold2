@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ShoesDAO">
+
+	<select id="getList" resultType="shoes">
+		SELECT * FROM shoess
+	</select>
+	
+	<select id="getCheckList" resultType="shoes" parameterType="hashmap">
+		SELECT * FROM SHOESS 
+			<where>
+				firstCategory = #{firstCategory} AND SECONDCATEGORY = #{secondCategory} 
+				<if test="thirdCategory != null">
+				and thirdCategory in 
+					<foreach collection="thirdCategory" index="index" item="shoes" open="(" close=")" separator=",">
+						#{thirdCategory} 
+					</foreach>
+				</if>
+				<if test="fourthCategory != null">
+				and fourthCategory in
+					<foreach collection="fourthCategory" index="index" item="shoes" open="(" close=")" separator=",">
+						#{fourthCategory} 
+					</foreach>
+				</if>
+				<if test="brand != null">
+				and brand in
+					<foreach collection="brand" index="index" item="shoes" open="(" close=")" separator=",">
+						#{brand} 
+					</foreach>
+				</if>
+			</where>
+	</select>
+	
+	<select id="getOne" resultType="shoes">
+		SELECT * FROM shoess
+	</select>
+
+</mapper>
