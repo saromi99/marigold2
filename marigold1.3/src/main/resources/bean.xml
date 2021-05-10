@@ -22,7 +22,7 @@
 		<property name="password" value="${aapassword}" />
 	</bean>
 	<bean class="com.zaxxer.hikari.HikariDataSource" id="dataSource" destroy-method="close" >
-		<constructor-arg ref="hikariConfig" />
+		<constructor-arg ref="hikariConfig" /> 
 	</bean>
 	
 	<bean class="org.mybatis.spring.SqlSessionFactoryBean" id="sqlSessionFactory">
