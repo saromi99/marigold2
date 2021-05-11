@@ -11,7 +11,7 @@ public interface ShoesDAO {
 	
 	public ShoesVO getOne(ShoesVO vo);
 	public List<ShoesVO> getList(ShoesVO vo);
-	
+	 
 	public List<ShoesVO> getCheckList(ShoesVO vo);
 	
 	public String getOneCheck(ShoesVO vo);
