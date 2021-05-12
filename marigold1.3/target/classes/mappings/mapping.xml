@@ -8,33 +8,95 @@
 		SELECT * FROM shoess
 	</select>
 	
-	<select id="getCheckList" resultType="shoes" parameterType="hashmap">
+	<select id="getOne" resultType="shoes">
+		SELECT * FROM shoess
+			where firstCategory = #{firstCategory}
+				and secondCategory = #{secondCategory}
+				and thirdCategory = #{thirdCategory}
+				and fourthCategory = #{fourthCategory}
+				and brand = #{brand}
+	</select>
+	
+	<select id="getCheckList" resultType="shoes">
 		SELECT * FROM SHOESS 
 			<where>
 				firstCategory = #{firstCategory} AND SECONDCATEGORY = #{secondCategory} 
 				<if test="thirdCategory != null">
-				and thirdCategory in 
-					<foreach collection="thirdCategory" index="index" item="shoes" open="(" close=")" separator=",">
-						#{thirdCategory} 
+					and thirdCategory in
+					<foreach collection="thirdCategory" item="thirdCategory" index="index" open="(" close=")" separator=",">
+						'${thirdCategory}'
 					</foreach>
 				</if>
 				<if test="fourthCategory != null">
-				and fourthCategory in
-					<foreach collection="fourthCategory" index="index" item="shoes" open="(" close=")" separator=",">
-						#{fourthCategory} 
+					and fourthCategory in
+					<foreach collection="fourthCategory" item="fourthCategory" index="index" open="(" close=")" separator=",">
+						'${fourthCategory}'
 					</foreach>
 				</if>
 				<if test="brand != null">
-				and brand in
-					<foreach collection="brand" index="index" item="shoes" open="(" close=")" separator=",">
-						#{brand} 
+					and brand in
+					<foreach collection="brand" item="brand" index="index" open="(" close=")" separator=",">
+						'${brand}'
+					</foreach>
+				</if>
+
+				<if test="color != null">
+					and color in
+					<foreach collection="color" item="color" index="index" open="(" close=")" separator=",">
+						'${color}'
+					</foreach>
+				</if>
+				<if test="material != null">
+					and material in
+					<foreach collection="material" item="material" index="index" open="(" close=")" separator=",">
+						'${material}'
+					</foreach>
+				</if>
+
+				<if test="price != null">
+					and
+					<foreach collection="price" item="price" index="index" open="(" close=")" separator="or">
+						<if test="price == 1">
+							<![CDATA[(price < 50000)]]>
+						</if>
+						<if test="price == 2">
+							<![CDATA[(50000 <= price and price < 100000)]]>
+						</if>
+						<if test="price == 3">
+							<![CDATA[(100000 <= price and price < 300000)]]>
+						</if>
+						<if test="price == 4">
+							<![CDATA[(300000 <= price and price < 500000)]]>
+						</if>
+						<if test="price == 5">
+							<![CDATA[(500000 <= price)]]>
+						</if>
 					</foreach>
 				</if>
 			</where>
 	</select>
 	
-	<select id="getOne" resultType="shoes">
-		SELECT * FROM shoess
+	<select id="getSearchList" resultType="shoes" parameterType="HashMap">
+		SELECT * FROM shoess 
+		<where>
+			<if test="searchKeyword != null">
+				<foreach collection="searchKeyword" item="searchKeyword" index="index" open="(" close=")" separator="and">
+					(FIRSTCATEGORY like initcap('%'||#{searchKeyword}||'%'))
+						or (SECONDCATEGORY like initcap('%'||#{searchKeyword}||'%'))
+						or (THIRDCATEGORY like initcap('%'||#{searchKeyword}||'%'))
+						or (FOURTHCATEGORY like initcap('%'||#{searchKeyword}||'%'))
+						or (BRAND like initcap('%'||#{searchKeyword}||'%'))
+						or (SPECIALDAY like initcap('%'||#{searchKeyword}||'%'))
+						or (COLOR like initcap('%'||#{searchKeyword}||'%'))
+						or (MATERIAL like initcap('%'||#{searchKeyword}||'%'))
+						or (PRICE like initcap('%'||#{searchKeyword}||'%'))
+						or (HEEL like initcap('%'||#{searchKeyword}||'%'))
+						or (MODELID like initcap('%'||#{searchKeyword}||'%'))
+				</foreach>
+			</if>
+		</where>
 	</select>
+	
+	
 
 </mapper>

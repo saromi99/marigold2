@@ -3,10 +3,12 @@ package com.marigold.shoes.impl;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.marigold.shoes.domain.ResultVO;
 import com.marigold.shoes.domain.ShoesDAO;
 import com.marigold.shoes.domain.ShoesService;
 import com.marigold.shoes.domain.ShoesVO;
@@ -48,31 +50,18 @@ public class ShoesServiceImpl implements ShoesService {
 	}
 
 	@Override
-	public List<ShoesVO> getList(ShoesVO vo) {
+	public List<ResultVO> getList(ShoesVO vo) {
 		return dao.getList(vo);
 	}
 	
 	@Override
-	public String getOneCheck(ShoesVO vo) {
-		
-		
-		return dao.getOneCheck(vo);
-	}
-
-	@Override
-	public List<ShoesVO> getListCheck() {
-		List<ShoesVO> list = null;
-
-		return list;
-	}
-
-	@Override
-	public List<ShoesVO> getCheckList(ShoesVO vo) {
-		List<ShoesVO> list = new ArrayList<ShoesVO>();
-		HashMap<String, List<ShoesVO>> map = new HashMap<String, List<ShoesVO>>();
-		map.put("list", list);
-		
+	public List<ResultVO> getCheckList(ShoesVO vo) {
 		return dao.getCheckList(vo);
+	}
+
+	@Override
+	public List<ResultVO> getSearchList(String[] searchKeyword) {
+		return dao.getSearchList(searchKeyword);
 	}
 
 }

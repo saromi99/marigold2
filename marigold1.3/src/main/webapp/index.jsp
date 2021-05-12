@@ -1,10 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
+<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>제품 검색</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
 <style>
 body {
 	margin: 0 auto;
@@ -21,7 +25,7 @@ form {
 </head>
 <body>
 	<div id="main">
-		<form method="post" action="getList.do">
+		<form method="get" action="getSearchList.do">
 			<input type="text" name="searchKeyword" /> <input type="submit" value="검색" />
 		</form>
 		<!-- name은 앞으로 정해야함. 검색어로 검색은 나중에 !-->
@@ -29,19 +33,18 @@ form {
 	<br />
 	<br />
 	<div id="container">
-		나중에 배포시 post방식으로 반드시 변환 <br />
-		<form method="get" action="getCheckList.do"> 
+		<form method="post" action="getCheckList.do"> 
 			<fieldset>
 				<legend>성별 및 연령</legend>
-				<input type="radio" name="firstCategory" value="M" checked="checked" />남성
+				<input type="radio" name="firstCategory" value="M" />남성
 				<input type="radio" name="firstCategory" value="W" />여성
-				<input type="radio" name="firstCategory" value="U" />남녀공용
+				<input type="radio" name="firstCategory" value="U" checked="checked" />남녀공용
 				<input type="radio" name="firstCategory" value="K" />키즈
 			</fieldset>
 			
 			<fieldset>
 				<legend>카테고리</legend>
-				<input type="radio" name="secondCategory" value="S" checked="checked"  />슈즈
+				<input type="radio" name="secondCategory" value="S" checked="checked" />슈즈
 				<input type="radio" name="secondCategory" value="C" />의류
 				<input type="radio" name="secondCategory" value="B" />가방
 				<input type="radio" name="secondCategory" value="A" />액세서리
@@ -64,17 +67,20 @@ form {
 				<input type="checkbox" name="fourthCategory" value="03" />슬립온
 				<input type="checkbox" name="fourthCategory" value="04" />어글리슈즈
 				<input type="checkbox" name="fourthCategory" value="05" />커스텀
+				
 				<input type="checkbox" name="fourthCategory" value="06" />런닝화
 				<input type="checkbox" name="fourthCategory" value="07" />농구화
 				<input type="checkbox" name="fourthCategory" value="08" />골프화
 				<input type="checkbox" name="fourthCategory" value="09" />등산화
 				<input type="checkbox" name="fourthCategory" value="10" />기능화
 				<input type="checkbox" name="fourthCategory" value="11" />축구화
+				
 				<input type="checkbox" name="fourthCategory" value="12" />로퍼/플랫
 				<input type="checkbox" name="fourthCategory" value="13" />힐/펌프스
 				<input type="checkbox" name="fourthCategory" value="14" />슬링백/토오픈
 				<input type="checkbox" name="fourthCategory" value="15" />뮬/블로퍼
 				<input type="checkbox" name="fourthCategory" value="16" />레이스업
+				
 				<input type="checkbox" name="fourthCategory" value="17" />슬라이드
 				<input type="checkbox" name="fourthCategory" value="18" />아쿠아슈즈
 				<input type="checkbox" name="fourthCategory" value="19" />스포츠샌들
@@ -82,7 +88,9 @@ form {
 				<input type="checkbox" name="fourthCategory" value="21" />레더샌들
 				<input type="checkbox" name="fourthCategory" value="22" />드레스샌드
 				<input type="checkbox" name="fourthCategory" value="23" />슬리퍼
+				
 				<input type="checkbox" name="fourthCategory" value="24" />워킹슈즈
+				
 				<input type="checkbox" name="fourthCategory" value="25" />워커부츠
 				<input type="checkbox" name="fourthCategory" value="26" />패딩부츠
 				<input type="checkbox" name="fourthCategory" value="27" />첼시부츠
@@ -199,9 +207,11 @@ form {
 				<input type="checkbox" name="price" value="5" />50만원 이상
 			</fieldset>
 			
+			<br />
 			<center>
 				<input id="checkSubmit" type="submit" value="검색" />
 			</center>
+			<br />
 			
 		</form>
 

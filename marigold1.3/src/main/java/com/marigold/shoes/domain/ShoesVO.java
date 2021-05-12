@@ -2,6 +2,10 @@ package com.marigold.shoes.domain;
 
 import java.util.Arrays;
 
+import javax.xml.bind.annotation.XmlTransient;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class ShoesVO {
 	private String firstCategory;
 	private String secondCategory;
@@ -14,6 +18,9 @@ public class ShoesVO {
 	private int[] price;
 	private int heel;
 	private String modelId;
+	
+	@XmlTransient
+	private String searchKeyword;
 	
 	public ShoesVO() {
 		super();
@@ -133,7 +140,17 @@ public class ShoesVO {
 	public void setModelId(String modelId) {
 		this.modelId = modelId;
 	}
+	
+	
+	@JsonIgnore
+	public String getSearchKeyword() {
+		return searchKeyword;
+	}
+	public void setSearchKeyword(String searchKeyword) {
+		this.searchKeyword = searchKeyword;
+	}
 
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
