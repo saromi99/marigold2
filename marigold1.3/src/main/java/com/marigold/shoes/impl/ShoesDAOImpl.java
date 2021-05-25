@@ -66,4 +66,9 @@ public class ShoesDAOImpl implements ShoesDAO {
 		return session.selectList("ShoesDAO.getSearchList", map);
 	}
 
+	@Override
+	public List<HashMap<String, String>> getThirdCategory(String[] thirdCategory) {
+		return session.selectList("ShoesDAO.getThirdCategory", thirdCategory);
+	}
+
 }

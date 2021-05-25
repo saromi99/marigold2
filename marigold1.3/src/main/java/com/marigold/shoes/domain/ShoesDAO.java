@@ -1,5 +1,6 @@
 package com.marigold.shoes.domain;
 
+import java.util.HashMap;
 import java.util.List;
 
 public interface ShoesDAO {
@@ -14,5 +15,6 @@ public interface ShoesDAO {
 	 
 	public List<ResultVO> getCheckList(ShoesVO vo);
 	public List<ResultVO> getSearchList(String[] searchKeyword);
+	public List<HashMap<String, String>> getThirdCategory(String[] thirdCategory);
 
 }

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
@@ -78,17 +79,6 @@ public class ShoesController {
 		return "getOne.jsp";
 	}
 	
-	@RequestMapping(value="/getCheckList.do")
-	public String getCheckList(ShoesVO vo, HttpServletRequest request, Model mod) {
-		System.out.println("체크박스 값 가져오기");
-		
-		List<ResultVO> shoesList = shoesService.getCheckList(vo);
-		
-		mod.addAttribute("shoesList", shoesList);
-		
-		return "getShoesList.jsp";
-	}
-	
 	@RequestMapping(value="/getSearchList.do")
 	public String getSearchList(ShoesVO vo, HttpServletRequest request, Model mod) {
 		System.out.println("검색 값 가져오기");
@@ -106,8 +96,28 @@ public class ShoesController {
 		
 		return "getShoesList.jsp";
 	}
-
 	
+	@RequestMapping(value="/getCheckList.do")
+	public String getCheckList(ShoesVO vo, HttpServletRequest request, Model mod) {
+		System.out.println("체크박스 값 가져오기");
+		
+		List<ResultVO> shoesList = shoesService.getCheckList(vo);
+		
+		mod.addAttribute("shoesList", shoesList);
+		
+		return "getShoesList.jsp";
+	}
 	
+	@RequestMapping(value="/getThirdCategoryList.do")
+	public String getThirdCategoryList(HttpServletRequest request, Model mod) {
+		System.out.println("thirdCategory 값 가져오기");
+		
+		String[] thirdCategory = request.getParameterValues("thirdCategory");
+		System.out.println(thirdCategory);
+		
+		List<HashMap<String,String>> tcList = shoesService.getThirdCategory(thirdCategory);
+		
+		return "./table/thirdCategory.jsp";
+	}
 
 }

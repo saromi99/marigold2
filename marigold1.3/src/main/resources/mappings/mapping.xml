@@ -75,26 +75,69 @@
 				</if>
 			</where>
 	</select>
-	
+<!--
 	<select id="getSearchList" resultType="shoes" parameterType="HashMap">
-		SELECT * FROM shoess 
+		SELECT distinct s.* FROM shoess s, firstCategory fc, secondCategory sc, thirdCategory tc, fourthCategory ftc
 		<where>
 			<if test="searchKeyword != null">
 				<foreach collection="searchKeyword" item="searchKeyword" index="index" open="(" close=")" separator="and">
-					(FIRSTCATEGORY like initcap('%'||#{searchKeyword}||'%'))
-						or (SECONDCATEGORY like initcap('%'||#{searchKeyword}||'%'))
-						or (THIRDCATEGORY like initcap('%'||#{searchKeyword}||'%'))
-						or (FOURTHCATEGORY like initcap('%'||#{searchKeyword}||'%'))
-						or (BRAND like initcap('%'||#{searchKeyword}||'%'))
-						or (SPECIALDAY like initcap('%'||#{searchKeyword}||'%'))
-						or (COLOR like initcap('%'||#{searchKeyword}||'%'))
-						or (MATERIAL like initcap('%'||#{searchKeyword}||'%'))
-						or (PRICE like initcap('%'||#{searchKeyword}||'%'))
-						or (HEEL like initcap('%'||#{searchKeyword}||'%'))
-						or (MODELID like initcap('%'||#{searchKeyword}||'%'))
+					(s.FIRSTCATEGORY = initCap(fc.FIRSTCATEGORY) and (fc.FIRSTCATEGORYCON like '%'||#{searchKeyword}||'%' or fc.FIRSTCATEGORYSIM like '%'||#{searchKeyword}||'%'))
+						or (s.SECONDCATEGORY = initCap(sc.SECONDCATEGORY) and (sc.SECONDCATEGORYCon like '%'||#{searchKeyword}||'%'))
+						or (s.THIRDCATEGORY = tc.THIRDCATEGORY and (tc.THIRDCATEGORYYCON like '%'||#{searchKeyword}||'%'))
+						or (s.FOURTHCATEGORY = ftc.FOURTHCATEGORY and (ftc.FOURTHCATEGORYCON like '%'||#{searchKeyword}||'%'))
+						or (BRAND like initCap('%'||#{searchKeyword}||'%'))
+						or (SPECIALDAY like '%'||#{searchKeyword}||'%')
+						or (COLOR like initCap('%'||#{searchKeyword}||'%'))
+						or (MATERIAL like initCap('%'||#{searchKeyword}||'%'))
+						or (PRICE like initCap('%'||#{searchKeyword}||'%'))
+						or (HEEL like initCap('%'||#{searchKeyword}||'%'))
+						or (MODELID like initCap('%'||#{searchKeyword}||'%'))
 				</foreach>
 			</if>
 		</where>
+	</select>
+-->	
+	<select id="getSearchList" resultType="shoes" parameterType="HashMap">
+		<if test="searchKeyword != null">
+			<foreach collection="searchKeyword" item="searchKeyword" index="index" open="(" close=")" separator="intersect">
+				SELECT distinct s.* FROM shoess s, firstCategory fc, secondCategory sc, thirdCategory tc, fourthCategory ftc, brand b
+					where
+						(s.FIRSTCATEGORY = initCap(fc.FIRSTCATEGORY) and (fc.FIRSTCATEGORYCON like '%'||#{searchKeyword}||'%' or fc.FIRSTCATEGORYSIM like '%'||#{searchKeyword}||'%'))
+							or (s.SECONDCATEGORY = initCap(sc.SECONDCATEGORY) and (sc.SECONDCATEGORYCon like '%'||#{searchKeyword}||'%'))
+							or (s.THIRDCATEGORY = tc.THIRDCATEGORY and (tc.THIRDCATEGORYYCON like '%'||#{searchKeyword}||'%'))
+							or (s.FOURTHCATEGORY = ftc.FOURTHCATEGORY and (ftc.FOURTHCATEGORYCON like '%'||#{searchKeyword}||'%'))
+							or (s.BRAND = b.BRAND and (BRANDCON like initCap('%'||#{searchKeyword}||'%')))
+							or (SPECIALDAY like '%'||#{searchKeyword}||'%')
+							or (COLOR like initCap('%'||#{searchKeyword}||'%'))
+							or (MATERIAL like initCap('%'||#{searchKeyword}||'%'))
+							or (PRICE like initCap('%'||#{searchKeyword}||'%'))
+							or (HEEL like initCap('%'||#{searchKeyword}||'%'))
+							or (MODELID like initCap('%'||#{searchKeyword}||'%'))
+			</foreach>
+		</if>
+	</select>
+	
+	<select id="getThirdCategory" parameterType="HashMap" resultType="shoes">
+		SELECT * FROM shoess s, thirdCategory tc
+			where s.thirdCategory = tc.thirdCategory
+			<if test="thirdCategory == 1">
+				and thirdCategoryClass = 1
+			</if>
+			<if test="thirdCategory == 2">
+				and thirdCategoryClass = 2
+			</if>
+			<if test="thirdCategory == 3">
+				and thirdCategoryClass = 3
+			</if>
+			<if test="thirdCategory == 4">
+				and thirdCategoryClass = 4
+			</if>
+			<if test="thirdCategory == 5">
+				and thirdCategoryClass = 5
+			</if>
+			<if test="thirdCategory == 6">
+				and thirdCategoryClass = 6
+			</if>
 	</select>
 	
 	

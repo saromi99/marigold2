@@ -64,4 +64,9 @@ public class ShoesServiceImpl implements ShoesService {
 		return dao.getSearchList(searchKeyword);
 	}
 
+	@Override
+	public List<HashMap<String, String>> getThirdCategory(String[] thirdCategory) {
+		return dao.getThirdCategory(thirdCategory);
+	}
+
 }
