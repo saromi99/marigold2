@@ -1,9 +1,6 @@
 package com.marigold.shoes.impl;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +9,8 @@ import com.marigold.shoes.domain.ResultVO;
 import com.marigold.shoes.domain.ShoesDAO;
 import com.marigold.shoes.domain.ShoesService;
 import com.marigold.shoes.domain.ShoesVO;
+import com.marigold.shoes.domain.SimilarWordVO;
+import com.marigold.shoes.domain.ThirdCategoryVO;
 
 @Service("shoesServiceReal")
 public class ShoesServiceImpl implements ShoesService {
@@ -45,7 +44,7 @@ public class ShoesServiceImpl implements ShoesService {
 	}
 
 	@Override
-	public ShoesVO getOne(ShoesVO vo) {
+	public ResultVO getOne(ResultVO vo) {
 		return dao.getOne(vo);
 	}
 
@@ -65,8 +64,18 @@ public class ShoesServiceImpl implements ShoesService {
 	}
 
 	@Override
-	public List<HashMap<String, String>> getThirdCategory(String[] thirdCategory) {
+	public List<ThirdCategoryVO> getThirdCategory(String thirdCategory) {
 		return dao.getThirdCategory(thirdCategory);
+	}
+
+	@Override
+	public List<SimilarWordVO> getSearchListSimilar(String[] searchKeyword) {
+		return dao.getSearchListSimilar(searchKeyword);
+	}
+
+	@Override
+	public List<ResultVO> getStandardWord(List<SimilarWordVO> similarWord) {
+		return dao.getStandardWord(similarWord);
 	}
 
 }

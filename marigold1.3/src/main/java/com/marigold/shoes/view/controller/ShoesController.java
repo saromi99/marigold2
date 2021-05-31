@@ -13,14 +13,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import com.marigold.shoes.domain.ConditionSearchVO;
 import com.marigold.shoes.domain.ResultVO;
 import com.marigold.shoes.domain.ShoesService;
 import com.marigold.shoes.domain.ShoesVO;
+import com.marigold.shoes.domain.SimilarWordVO;
 
 
 @Controller
@@ -72,10 +70,13 @@ public class ShoesController {
 	}
 	
 	@RequestMapping(value="/getOne.do")
-	public String getOne(ShoesVO vo, Model mod) {
+	public String getOne(ResultVO vo, Model mod) {
 		System.out.println("글 상세 조회 처리");
-		ShoesVO shoes = shoesService.getOne(vo);
+		
+		ResultVO shoes = shoesService.getOne(vo);
+		
 		mod.addAttribute("shoes", shoes);
+		
 		return "getOne.jsp";
 	}
 	
@@ -84,14 +85,37 @@ public class ShoesController {
 		System.out.println("검색 값 가져오기");
 		System.out.println(request.getParameter("searchKeyword"));
 		
-		String[] searchKeyword = request.getParameter("searchKeyword").split(" ");
+		String[] searchKeyword = request.getParameter("searchKeyword").split("[\\s+~!@#$%^&*(),.?\"\':;\\{\\}\\[\\]-_=|<>+\\\\]+");
 		
-		for(int i = 0; i < searchKeyword.length; i += 1) {
-			System.out.println(searchKeyword[i]);
-		}
+		for(int i = 0; i < searchKeyword.length; i += 1) { System.out.println(searchKeyword[i]); }
 		
 		List<ResultVO> shoesList = shoesService.getSearchList(searchKeyword);
 		
+		mod.addAttribute("shoesList", shoesList);
+		
+		return "getShoesList.jsp";
+	}
+	
+	@RequestMapping(value="/getSearchListSimilar.do")
+	public String getSearchListSimilar(ShoesVO vo, HttpServletRequest request, Model mod) {
+		System.out.println("검색 값 가져오기");
+		System.out.println(request.getParameter("searchKeyword"));
+		
+		String[] searchKeyword = request.getParameter("searchKeyword").split("[\\s+~!@#$%^&*(),.?\"\':;\\{\\}\\[\\]-_=|<>+\\\\]+");
+		
+		System.out.println("searchKeyword의 길이 : " + searchKeyword.length);
+		
+		for(int i = 0; i < searchKeyword.length; i += 1) { System.out.println("searchKeyword[" + i + "] : " + searchKeyword[i]); }
+		
+		List<ResultVO> shoesList = shoesService.getSearchList(searchKeyword);
+		
+		List<SimilarWordVO> similarWord = shoesService.getSearchListSimilar(searchKeyword);
+		for(int i = 0; i < similarWord.size(); i += 1) { System.out.println("getStandardWord()의 " + i + " 번째 : " + similarWord.get(i).getStandardWord()); }
+		
+		if(!similarWord.isEmpty()) {
+			shoesList.addAll(shoesService.getStandardWord(similarWord));
+		}
+		System.out.println("shoesList의 크기 : " + shoesList.size());
 		mod.addAttribute("shoesList", shoesList);
 		
 		return "getShoesList.jsp";
@@ -106,18 +130,6 @@ public class ShoesController {
 		mod.addAttribute("shoesList", shoesList);
 		
 		return "getShoesList.jsp";
-	}
-	
-	@RequestMapping(value="/getThirdCategoryList.do")
-	public String getThirdCategoryList(HttpServletRequest request, Model mod) {
-		System.out.println("thirdCategory 값 가져오기");
-		
-		String[] thirdCategory = request.getParameterValues("thirdCategory");
-		System.out.println(thirdCategory);
-		
-		List<HashMap<String,String>> tcList = shoesService.getThirdCategory(thirdCategory);
-		
-		return "./table/thirdCategory.jsp";
 	}
 
 }

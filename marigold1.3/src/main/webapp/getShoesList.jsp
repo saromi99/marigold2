@@ -58,44 +58,78 @@
 						</tr>
 						
 					<c:forEach items="${ shoesList }" var="shoes">
-						<tr>
-							<td>
-								<c:if test="${shoes.firstCategory eq 'M'}">
-									남자
-								</c:if>
-								<c:if test="${shoes.firstCategory eq 'W'}">
-									여자
-								</c:if>
-								<c:if test="${shoes.firstCategory eq 'U'}">
-									남녀공용
-								</c:if>
-								<c:if test="${shoes.firstCategory eq 'K'}">
-									키즈
-								</c:if>
-							</td>
-							<td>${ shoes.secondCategory }</td>
-							<td>${ shoes.thirdCategory }</td>
-							<td>${ shoes.fourthCategory }</td>
-							<td>${ shoes.brand }</td>
-							<td>
-								<c:if test="${not empty shoes.specialDay}">
-									${ shoes.specialDay }
-								</c:if>
-							</td>
-							<td>${ shoes.color }</td>
-							<td>${ shoes.material }</td>
-							<td>${ shoes.price } 원</td>
-							<td>
-								<c:if test="${not empty shoes.heel}">
-									${ shoes.heel } cm
-								</c:if>
-							</td>
-							<td>
-								<c:if test="${not empty shoes.modelId}">
-									${ shoes.modelId }
-								</c:if>
-							</td>
-						</tr>
+							<tr>
+								<td>
+									<c:if test="${shoes.firstCategory eq 'M'}">
+										남자
+									</c:if>
+									<c:if test="${shoes.firstCategory eq 'W'}">
+										여자
+									</c:if>
+									<c:if test="${shoes.firstCategory eq 'U'}">
+										남녀공용
+									</c:if>
+									<c:if test="${shoes.firstCategory eq 'K'}">
+										키즈
+									</c:if>
+								</td>
+								<td>
+									<c:if test="${shoes.secondCategory eq 'S'}">
+										슈즈
+									</c:if>
+									<c:if test="${shoes.secondCategory eq 'C'}">
+										의류
+									</c:if>
+									<c:if test="${shoes.secondCategory eq 'B'}">
+										가방
+									</c:if>
+									<c:if test="${shoes.secondCategory eq 'A'}">
+										악세서리
+									</c:if>
+								</td>
+								<td>
+									<c:if test="${shoes.thirdCategory eq '1'}">
+										운동화
+									</c:if>
+									<c:if test="${shoes.thirdCategory eq '2'}">
+										스포츠
+									</c:if>
+									<c:if test="${shoes.thirdCategory eq '3'}">
+										구두
+									</c:if>
+									<c:if test="${shoes.thirdCategory eq '4'}">
+										샌들
+									</c:if>
+									<c:if test="${shoes.thirdCategory eq '5'}">
+										캐주얼
+									</c:if>
+									<c:if test="${shoes.thirdCategory eq '6'}">
+										부츠
+									</c:if>
+								</td>
+								<td>${ shoes.fourthCategory }</td>
+								<td>${ shoes.brand }</td>
+								<td>
+									<c:if test="${not empty shoes.specialDay}">
+										${ shoes.specialDay }
+									</c:if>
+								</td>
+								<td>${ shoes.color }</td>
+								<td>${ shoes.material }</td>
+								<td>${ shoes.price } 원</td>
+								<td>
+									<c:if test="${not empty shoes.heel}">
+										${ shoes.heel } cm
+									</c:if>
+								</td>
+								<td>
+									<c:if test="${not empty shoes.modelId}">
+										<a href="getOne.do?modelId=${shoes.modelId}">
+											${ shoes.modelId }
+										</a>
+									</c:if>
+								</td>
+							</tr>
 					</c:forEach>
 				</table>
 			</c:if>
@@ -103,7 +137,7 @@
 				검색 결과가 없습니다.
 			</c:if>
 			<br /><br />
-			<a href="javascript:history.go(-1)">검색화면</a>
+			<a href="./index.jsp">검색화면</a>
 		</form>
 	</div>
 </body>

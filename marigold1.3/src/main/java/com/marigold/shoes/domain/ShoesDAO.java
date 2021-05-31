@@ -1,6 +1,5 @@
 package com.marigold.shoes.domain;
 
-import java.util.HashMap;
 import java.util.List;
 
 public interface ShoesDAO {
@@ -10,11 +9,13 @@ public interface ShoesDAO {
 	public void deleteAll();
 	public int getCount();
 	
-	public ShoesVO getOne(ShoesVO vo);
+	public ResultVO getOne(ResultVO vo);
 	public List<ResultVO> getList(ShoesVO vo);
 	 
 	public List<ResultVO> getCheckList(ShoesVO vo);
 	public List<ResultVO> getSearchList(String[] searchKeyword);
-	public List<HashMap<String, String>> getThirdCategory(String[] thirdCategory);
+	public List<ThirdCategoryVO> getThirdCategory(String thirdCategory);
+	public List<SimilarWordVO> getSearchListSimilar(String[] searchKeyword);
+	public List<ResultVO> getStandardWord(List<SimilarWordVO> similarWord);
 
 }

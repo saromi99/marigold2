@@ -10,11 +10,7 @@
 	
 	<select id="getOne" resultType="shoes">
 		SELECT * FROM shoess
-			where firstCategory = #{firstCategory}
-				and secondCategory = #{secondCategory}
-				and thirdCategory = #{thirdCategory}
-				and fourthCategory = #{fourthCategory}
-				and brand = #{brand}
+			where modelId = #{modelId}
 	</select>
 	
 	<select id="getCheckList" resultType="shoes">
@@ -97,49 +93,65 @@
 		</where>
 	</select>
 -->	
+
 	<select id="getSearchList" resultType="shoes" parameterType="HashMap">
 		<if test="searchKeyword != null">
 			<foreach collection="searchKeyword" item="searchKeyword" index="index" open="(" close=")" separator="intersect">
 				SELECT distinct s.* FROM shoess s, firstCategory fc, secondCategory sc, thirdCategory tc, fourthCategory ftc, brand b
 					where
-						(s.FIRSTCATEGORY = initCap(fc.FIRSTCATEGORY) and (fc.FIRSTCATEGORYCON like '%'||#{searchKeyword}||'%' or fc.FIRSTCATEGORYSIM like '%'||#{searchKeyword}||'%'))
-							or (s.SECONDCATEGORY = initCap(sc.SECONDCATEGORY) and (sc.SECONDCATEGORYCon like '%'||#{searchKeyword}||'%'))
-							or (s.THIRDCATEGORY = tc.THIRDCATEGORY and (tc.THIRDCATEGORYYCON like '%'||#{searchKeyword}||'%'))
-							or (s.FOURTHCATEGORY = ftc.FOURTHCATEGORY and (ftc.FOURTHCATEGORYCON like '%'||#{searchKeyword}||'%'))
-							or (s.BRAND = b.BRAND and (BRANDCON like initCap('%'||#{searchKeyword}||'%')))
-							or (SPECIALDAY like '%'||#{searchKeyword}||'%')
-							or (COLOR like initCap('%'||#{searchKeyword}||'%'))
-							or (MATERIAL like initCap('%'||#{searchKeyword}||'%'))
-							or (PRICE like initCap('%'||#{searchKeyword}||'%'))
-							or (HEEL like initCap('%'||#{searchKeyword}||'%'))
-							or (MODELID like initCap('%'||#{searchKeyword}||'%'))
+						(initCap(s.FIRSTCATEGORY) = initCap(fc.FIRSTCATEGORY) and (initCap(fc.FIRSTCATEGORYCON) like '%'||initCap(#{searchKeyword})||'%' or fc.FIRSTCATEGORYSIM like '%'||initCap(#{searchKeyword})||'%'))
+							or (initCap(s.SECONDCATEGORY) = initCap(sc.SECONDCATEGORY) and (initCap(sc.SECONDCATEGORYCon) like '%'||#{searchKeyword}||'%'))
+							or (initCap(s.THIRDCATEGORY) = initCap(tc.THIRDCATEGORY) and (initCap(tc.THIRDCATEGORYCON) like '%'||#{searchKeyword}||'%'))
+							or (initCap(s.FOURTHCATEGORY) = initCap(ftc.FOURTHCATEGORY) and (initCap(ftc.FOURTHCATEGORYCON) like '%'||#{searchKeyword}||'%'))
+							or (initCap(s.BRAND) = initCap(b.BRAND) and (initCap(BRANDCON) like '%'||initCap(#{searchKeyword})||'%'))
+							or (initCap(SPECIALDAY) like '%'||initCap(#{searchKeyword})||'%')
+							or (initCap(COLOR) like '%'||initCap(#{searchKeyword})||'%')
+							or (initCap(MATERIAL) like '%'||initCap(#{searchKeyword})||'%')
+							or (initCap(PRICE) like '%'||initCap(#{searchKeyword})||'%')
+							or (initCap(HEEL) like '%'||initCap(#{searchKeyword})||'%')
+							or (initCap(MODELID) like '%'||initCap(#{searchKeyword})||'%')
+			</foreach>
+		</if>
+	</select>
+
+	<select id="getSearchListSimilar" resultType="similarWord" parameterType="HashMap">
+		SELECT distinct * FROM similarWord
+		<where>
+			<if test="searchKeyword != null">
+				<foreach collection="searchKeyword" item="searchKeyword" index="index" open="(" close=")" separator="or">
+					initCap(similarWord) = initCap(#{searchKeyword})
+				</foreach>
+			</if>
+		</where>
+	</select>
+	
+	<select id="getStandardWord" resultType="shoes" parameterType="HashMap">
+		<if test="standardWord != null">
+			<foreach collection="standardWord" item="standardWord" index="index" open="(" close=")" separator="intersect">
+			SELECT distinct s.* FROM shoess s
+				where
+					(initCap(firstCategory) = initCap(#{standardWord}))
+						or (initCap(color) = initCap(#{standardWord}))
+						or (initCap(SECONDCATEGORY) = initCap(#{standardWord}))
+						or (initCap(THIRDCATEGORY) = initCap(#{standardWord}))
+						or (initCap(FOURTHCATEGORY) = initCap(#{standardWord}))
+						or (initCap(BRAND) = initCap(#{standardWord}))
+						or (initCap(SPECIALDAY) = initCap(#{standardWord}))
+						or (initCap(MATERIAL) = initCap(#{standardWord}))
+						or (initCap(MODELID) = initCap(#{standardWord}))
 			</foreach>
 		</if>
 	</select>
 	
-	<select id="getThirdCategory" parameterType="HashMap" resultType="shoes">
+	<select id="getThirdCategory" resultType="shoes">
 		SELECT * FROM shoess s, thirdCategory tc
 			where s.thirdCategory = tc.thirdCategory
-			<if test="thirdCategory == 1">
-				and thirdCategoryClass = 1
-			</if>
-			<if test="thirdCategory == 2">
-				and thirdCategoryClass = 2
-			</if>
-			<if test="thirdCategory == 3">
-				and thirdCategoryClass = 3
-			</if>
-			<if test="thirdCategory == 4">
-				and thirdCategoryClass = 4
-			</if>
-			<if test="thirdCategory == 5">
-				and thirdCategoryClass = 5
-			</if>
-			<if test="thirdCategory == 6">
-				and thirdCategoryClass = 6
+			<if test="thirdCategory != null">
+				and thirdCategoryCon in
+				<foreach collection="thirdCategory" item="thirdCategory" index="index" open="(" close=")" separator=",">
+					'${thirdCategory}'
+				</foreach>
 			</if>
 	</select>
-	
-	
 
 </mapper>

@@ -66,6 +66,7 @@
 <style>
 body {
 	margin: 0 auto;
+	width: 90%;
 }
 form {
     margin:0 auto;
@@ -78,16 +79,20 @@ form {
 </style>
 </head>
 <body>
+	<h1>신발 검색</h1>
 	<div id="main">
-		<form method="get" action="getSearchList.do">
+		<form method="post" action="getSearchList.do">
 			<input type="text" name="searchKeyword" /> <input type="submit" value="검색" />
 		</form>
-		<!-- name은 앞으로 정해야함. 검색어로 검색은 나중에 !-->
+		<br /><br />
+		<form method="post" action="getSearchListSimilar.do">
+			<input type="text" name="searchKeyword" /> <input type="submit" value="검색" />
+		</form>
 	</div>
 	<br />
 	<br />
 	<div id="container">
-		<form method="post" action="getCheckList.do"> 
+		<form method="post" action="getCheckList.do">
 			<fieldset>
 				<legend>성별 및 연령</legend>
 				<label for="M"><input type="radio" name="firstCategory" id="M" value="M" />남성</label>
