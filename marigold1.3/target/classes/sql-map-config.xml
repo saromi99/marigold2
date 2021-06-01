@@ -6,6 +6,8 @@
 	<typeAliases>
 		<typeAlias type="com.marigold.shoes.domain.ResultVO" alias="shoes"></typeAlias>
 		<typeAlias type="com.marigold.shoes.domain.SimilarWordVO" alias="similarWord"></typeAlias>
+		<typeAlias type="com.marigold.shoes.domain.FourthCategoryVO" alias="fourthCategory"></typeAlias>
+		<typeAlias type="com.marigold.shoes.domain.BrandVO" alias="brand"></typeAlias>
 	</typeAliases>
 </configuration>
 

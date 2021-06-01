@@ -70,10 +70,10 @@ body {
 }
 form {
     margin:0 auto;
-    width: 520px;
+    width: 90%;
 }
 #checkSubmit{
-	margin:0 auto;
+	text-align: center;
 }
 
 </style>
@@ -81,19 +81,17 @@ form {
 <body>
 	<h1>신발 검색</h1>
 	<div id="main">
-		<form method="post" action="getSearchList.do">
-			<input type="text" name="searchKeyword" /> <input type="submit" value="검색" />
-		</form>
-		<br /><br />
 		<form method="post" action="getSearchListSimilar.do">
-			<input type="text" name="searchKeyword" /> <input type="submit" value="검색" />
+			<input type="text" name="searchKeyword" /> <input type="submit" value="검색" /> &nbsp;&nbsp;
+			<a href="getList.do">전체상품</a>
 		</form>
 	</div>
 	<br />
 	<br />
+	
 	<div id="container">
 		<form method="post" action="getCheckList.do">
-			<fieldset>
+			<fieldset id="firstCategory">
 				<legend>성별 및 연령</legend>
 				<label for="M"><input type="radio" name="firstCategory" id="M" value="M" />남성</label>
 				<label for="W"><input type="radio" name="firstCategory" id="W" value="W" />여성</label>
@@ -101,7 +99,7 @@ form {
 				<label for="K"><input type="radio" name="firstCategory" id="K" value="K" />키즈</label>
 			</fieldset>
 			
-			<fieldset>
+			<fieldset id="secondCategory">
 				<legend>카테고리</legend>
 				<label for="S"><input type="radio" name="secondCategory" id="S" value="S" checked="checked" />슈즈</label>
 				<label for="C"><input type="radio" name="secondCategory" id="C" value="C" />의류</label>
@@ -109,7 +107,7 @@ form {
 				<label for="A"><input type="radio" name="secondCategory" id="A" value="A" />액세서리</label>
 			</fieldset>
 			
-			<fieldset>
+			<fieldset id="thirdCategory">
 				<legend>슈즈</legend>
 				<label for="1" class="tc"><input type="checkbox" name="thirdCategory" id="1" value="1" />운동화</label>
 				<label for="2" class="tc"><input type="checkbox" name="thirdCategory" id="2" value="2" />스포츠</label>
@@ -161,7 +159,7 @@ form {
 				<label for="32" class="S 6"><input type="checkbox" id="32"  name="fourthCategory" value="32" />앵클부츠</label>
 			</fieldset>
 			
-			<fieldset>
+			<fieldset id="brand">
 				<legend>브랜드</legend>
 				<label for="001"><input type="checkbox" id="001" name="brand" value="001" />샤넬</label>
 				<label for="002"><input type="checkbox" id="002" name="brand" value="002" />셀린느</label>
@@ -222,7 +220,7 @@ form {
 				<label for="052"><input type="checkbox" id="052" name="brand" value="052" />무인양품</label>
 			</fieldset>
 			
-			<fieldset>
+			<fieldset id="color">
 				<legend>색상 계열</legend>
 				<label for="검정"><input type="checkbox" id="검정" name="color" value="검정" />검정</label>
 				<label for="파랑"><input type="checkbox" id="파랑" name="color" value="파랑" />파랑</label>
@@ -245,7 +243,7 @@ form {
 				<label for="카키"><input type="checkbox" id="카키" name="color" value="카키" />카키</label>
 			</fieldset>
 			
-			<fieldset>
+			<fieldset id="material">
 				<legend>소재</legend>
 				<label for="소가죽"><input type="checkbox" id="소가죽" name="material" value="소가죽" />소가죽</label>
 				<label for="송아지가죽"><input type="checkbox" id="송아지가죽" name="material" value="송아지가죽" />송아지가죽</label>
@@ -262,20 +260,21 @@ form {
 				<label for="레이온"><input type="checkbox" id="레이온" name="material" value="레이온" />레이온</label>
 			</fieldset>
 			
-			<fieldset>
+			<fieldset id="price">
 				<legend>가격대</legend>
 				<!-- value값 변경 가능 -->
-				<label for="1"><input type="checkbox" id="1" name="price" value="1" />1만원-5만원</label>
-				<label for="2"><input type="checkbox" id="2" name="price" value="2" />5만원-10만원</label>
-				<label for="3"><input type="checkbox" id="3" name="price" value="3" />10만원-30만원</label>
-				<label for="4"><input type="checkbox" id="4" name="price" value="4" />30만원-50만원</label>
-				<label for="5"><input type="checkbox" id="5" name="price" value="5" />50만원 이상</label>
+				<label for="price1"><input type="checkbox" id="price1" name="price" value="1" />1만원-5만원</label>
+				<label for="price2"><input type="checkbox" id="price2" name="price" value="2" />5만원-10만원</label>
+				<label for="price3"><input type="checkbox" id="price3" name="price" value="3" />10만원-30만원</label>
+				<label for="price4"><input type="checkbox" id="price4" name="price" value="4" />30만원-50만원</label>
+				<label for="price5"><input type="checkbox" id="price5" name="price" value="5" />50만원 이상</label>
 			</fieldset>
 			
 			<br />
-			<center>
-				<input id="checkSubmit" type="submit" value="검색" />
-			</center>
+			
+			<div id="checkSubmit">
+				<input type="submit" value="검색" />
+			</div>
 			<br />
 			
 		</form>

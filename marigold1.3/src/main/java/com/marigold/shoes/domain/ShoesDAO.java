@@ -14,8 +14,9 @@ public interface ShoesDAO {
 	 
 	public List<ResultVO> getCheckList(ShoesVO vo);
 	public List<ResultVO> getSearchList(String[] searchKeyword);
-	public List<ThirdCategoryVO> getThirdCategory(String thirdCategory);
 	public List<SimilarWordVO> getSearchListSimilar(String[] searchKeyword);
 	public List<ResultVO> getStandardWord(List<SimilarWordVO> similarWord);
+	public FourthCategoryVO getFourthCategory(String fourthCategory);
+	public BrandVO getBrand(String brand);
 
 }

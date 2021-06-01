@@ -71,6 +71,7 @@
 				</if>
 			</where>
 	</select>
+	
 <!--
 	<select id="getSearchList" resultType="shoes" parameterType="HashMap">
 		SELECT distinct s.* FROM shoess s, firstCategory fc, secondCategory sc, thirdCategory tc, fourthCategory ftc
@@ -93,26 +94,6 @@
 		</where>
 	</select>
 -->	
-
-	<select id="getSearchList" resultType="shoes" parameterType="HashMap">
-		<if test="searchKeyword != null">
-			<foreach collection="searchKeyword" item="searchKeyword" index="index" open="(" close=")" separator="intersect">
-				SELECT distinct s.* FROM shoess s, firstCategory fc, secondCategory sc, thirdCategory tc, fourthCategory ftc, brand b
-					where
-						(initCap(s.FIRSTCATEGORY) = initCap(fc.FIRSTCATEGORY) and (initCap(fc.FIRSTCATEGORYCON) like '%'||initCap(#{searchKeyword})||'%' or fc.FIRSTCATEGORYSIM like '%'||initCap(#{searchKeyword})||'%'))
-							or (initCap(s.SECONDCATEGORY) = initCap(sc.SECONDCATEGORY) and (initCap(sc.SECONDCATEGORYCon) like '%'||#{searchKeyword}||'%'))
-							or (initCap(s.THIRDCATEGORY) = initCap(tc.THIRDCATEGORY) and (initCap(tc.THIRDCATEGORYCON) like '%'||#{searchKeyword}||'%'))
-							or (initCap(s.FOURTHCATEGORY) = initCap(ftc.FOURTHCATEGORY) and (initCap(ftc.FOURTHCATEGORYCON) like '%'||#{searchKeyword}||'%'))
-							or (initCap(s.BRAND) = initCap(b.BRAND) and (initCap(BRANDCON) like '%'||initCap(#{searchKeyword})||'%'))
-							or (initCap(SPECIALDAY) like '%'||initCap(#{searchKeyword})||'%')
-							or (initCap(COLOR) like '%'||initCap(#{searchKeyword})||'%')
-							or (initCap(MATERIAL) like '%'||initCap(#{searchKeyword})||'%')
-							or (initCap(PRICE) like '%'||initCap(#{searchKeyword})||'%')
-							or (initCap(HEEL) like '%'||initCap(#{searchKeyword})||'%')
-							or (initCap(MODELID) like '%'||initCap(#{searchKeyword})||'%')
-			</foreach>
-		</if>
-	</select>
 
 	<select id="getSearchListSimilar" resultType="similarWord" parameterType="HashMap">
 		SELECT distinct * FROM similarWord
@@ -143,14 +124,28 @@
 		</if>
 	</select>
 	
-	<select id="getThirdCategory" resultType="shoes">
-		SELECT * FROM shoess s, thirdCategory tc
-			where s.thirdCategory = tc.thirdCategory
-			<if test="thirdCategory != null">
-				and thirdCategoryCon in
-				<foreach collection="thirdCategory" item="thirdCategory" index="index" open="(" close=")" separator=",">
-					'${thirdCategory}'
-				</foreach>
+	<select id="getSearchList" resultType="shoes" parameterType="HashMap">
+		<if test="searchKeyword != null">
+			<foreach collection="searchKeyword" item="searchKeyword" index="index" open="(" close=")" separator="intersect">
+				SELECT distinct s.* FROM shoess s, brand b
+					where
+						(initCap(s.BRAND) = initCap(b.BRAND) and (initCap(BRANDCON) like '%'||initCap(#{searchKeyword})||'%'))
+							or (initCap(MODELID) like '%'||initCap(#{searchKeyword})||'%')
+			</foreach>
+		</if>
+	</select>
+	
+	<select id="getFourthCategory" resultType="fourthCategory">
+		SELECT * FROM fourthCategory
+			<if test="fourthCategory != null">
+				where initCap(fourthCategory) = initCap(#{fourthCategory})
+			</if>
+	</select>
+	
+	<select id="getBrand" resultType="brand">
+		SELECT * FROM brand
+			<if test="brand != null">
+				where initCap(brand) = initCap(#{brand})
 			</if>
 	</select>
 
