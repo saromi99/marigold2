@@ -18,5 +18,6 @@ public interface ShoesService {
 	public List<ResultVO> getStandardWord(List<SimilarWordVO> similarWord);
 	public FourthCategoryVO getFourthCategory(String fourthCategory);
 	public BrandVO getBrand(String brand);
+	public List<ResultVO> buyShoes(ResultVO vo);
 
 }

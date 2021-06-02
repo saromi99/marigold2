@@ -102,4 +102,9 @@ public class ShoesDAOImpl implements ShoesDAO {
 	public BrandVO getBrand(String brand) {
 		return session.selectOne("ShoesDAO.getBrand", brand);
 	}
+
+	@Override
+	public List<ResultVO> buyShoes(ResultVO vo) {
+		return session.selectOne("ShoesDAO.buyShoes", vo);
+	}
 }

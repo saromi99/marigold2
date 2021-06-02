@@ -84,4 +84,9 @@ public class ShoesServiceImpl implements ShoesService {
 		return dao.getBrand(brand);
 	}
 
+	@Override
+	public List<ResultVO> buyShoes(ResultVO vo) {
+		return dao.buyShoes(vo);
+	}
+
 }

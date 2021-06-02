@@ -38,6 +38,10 @@
 		border-left: solid 1px gray;
 		border-right: solid 1px gray;
 	}
+	a{
+		display: block;
+		text-align: center;
+	}
 </style>
 </head>
 <body>
@@ -92,7 +96,7 @@
 							</td>
 							<td>
 								<c:if test="${ shoes.thirdCategory eq '1' }">
-										운동화
+									운동화
 								</c:if>
 								<c:if test="${ shoes.thirdCategory eq '2' }">
 									스포츠

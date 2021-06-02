@@ -79,7 +79,14 @@ public class ShoesController {
 		System.out.println("글 상세 조회 처리");
 		
 		ResultVO shoes = shoesService.getOne(vo);
+
+		FourthCategoryVO fourthCategory = shoesService.getFourthCategory(shoes.getFourthCategory());
+				
+		BrandVO brand = shoesService.getBrand(shoes.getBrand());
+
 		mod.addAttribute("shoes", shoes);
+		mod.addAttribute("fourthCategory", fourthCategory);
+		mod.addAttribute("brand", brand);
 		
 		return "getOne.jsp";
 	}
@@ -142,6 +149,17 @@ public class ShoesController {
 		tradeCategory(shoesList, mod);
 		
 		return "getShoesList.jsp";
+	}
+	
+	@RequestMapping(value="/buyShoes.do")
+	public String buyShoes(ResultVO vo, HttpServletRequest request, Model mod) {
+		System.out.println("DB로 구매내역 넘기기");
+		int quantity = Integer.parseInt(request.getParameter("quantity"));
+		System.out.println(quantity);
+		
+		mod.addAttribute("quantity", quantity);
+		
+		return "buyShoes.jsp";
 	}
 	
 	// fourthCategory 와 brand 의 내용을 코드 대신 한글로 표현하기 위한 함수

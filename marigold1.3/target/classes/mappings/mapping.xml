@@ -13,6 +13,11 @@
 			where modelId = #{modelId}
 	</select>
 	
+	<select id="buyShoes" resultType="shoes">
+		SELECT * FROM shoess
+			where modelId = #{modelId}
+	</select>
+	
 	<select id="getCheckList" resultType="shoes">
 		SELECT * FROM SHOESS 
 			<where>
