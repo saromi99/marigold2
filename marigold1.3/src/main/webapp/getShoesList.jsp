@@ -29,7 +29,7 @@
 		margin: 0 auto;
 		border-collapse: collapse;
 		border: solid 1px black;
-		width: 90%;
+		width: 100%;
 	}
 	th{
 		border-bottom: solid 1px black;

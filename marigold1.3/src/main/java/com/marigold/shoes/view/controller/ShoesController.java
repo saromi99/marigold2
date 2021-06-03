@@ -117,14 +117,14 @@ public class ShoesController {
 		// 넘어온 검색어를 특수문자 또는 띄어쓰기로 나눠 searchKeyword 배열에 담기
 		String[] searchKeyword = request.getParameter("searchKeyword").split("[\\s+~!@#$%^&*(),.?\"\':;\\{\\}\\[\\]-_=|<>+\\\\]+");
 		System.out.println("searchKeyword의 길이 : " + searchKeyword.length);
-		for(int i = 0; i < searchKeyword.length; i += 1) { System.out.print(" " + searchKeyword[i]); } System.out.println();
+		for(int i = 0; i < searchKeyword.length; i += 1) { System.out.print(searchKeyword[i] + " "); } System.out.println();
 		
 		// searchKeyword 내용을 shoess 테이블에서 먼저 검색해 shoesList에 담기 - brand 와 modelId 는 like로 검색이 가능하게 하기 위해서
 		List<ResultVO> shoesList = shoesService.getSearchList(searchKeyword);
 		
 		// searchKeyword 내용을 similarWord 테이블에서 검색해 단어를 표준화 하기
 		List<SimilarWordVO> similarWord = shoesService.getSearchListSimilar(searchKeyword);
-		for(int i = 0; i < similarWord.size(); i += 1) { System.out.print(" " + similarWord.get(i).getStandardWord()); } System.out.println();
+		for(int i = 0; i < similarWord.size(); i += 1) { System.out.print(similarWord.get(i).getStandardWord() + " "); } System.out.println();
 		
 		// similarWord가 비어있지 않으면 단어를 표준화해서 shoesList에 추가하기
 		if(!similarWord.isEmpty()) { 
@@ -154,10 +154,13 @@ public class ShoesController {
 	@RequestMapping(value="/buyShoes.do")
 	public String buyShoes(ResultVO vo, HttpServletRequest request, Model mod) {
 		System.out.println("DB로 구매내역 넘기기");
-		int quantity = Integer.parseInt(request.getParameter("quantity"));
-		System.out.println(quantity);
+		int purchaseCnt = Integer.parseInt(request.getParameter("purchaseCnt"));
 		
-		mod.addAttribute("quantity", quantity);
+		shoesService.updateCnt(vo, purchaseCnt);
+		ResultVO shoes = shoesService.getOne(vo);
+		
+		mod.addAttribute("shoes", shoes);
+		mod.addAttribute("purchaseCnt", purchaseCnt);
 		
 		return "buyShoes.jsp";
 	}

@@ -13,15 +13,19 @@
 			where modelId = #{modelId}
 	</select>
 	
-	<select id="buyShoes" resultType="shoes">
-		SELECT * FROM shoess
-			where modelId = #{modelId}
-	</select>
+	<update id="updateCnt">
+		UPDATE shoess set purchaseCnt = purchaseCnt + #{purchaseCnt} where modelId = #{modelId}
+	</update>
 	
 	<select id="getCheckList" resultType="shoes">
 		SELECT * FROM SHOESS 
 			<where>
-				firstCategory = #{firstCategory} AND SECONDCATEGORY = #{secondCategory} 
+				<if test='firstCategory == "A"'>
+					secondCategory = #{secondCategory}
+				</if>
+				<if test='firstCategory != "A"'>
+					firstCategory = #{firstCategory} AND SECONDCATEGORY = #{secondCategory}
+				</if>
 				<if test="thirdCategory != null">
 					and thirdCategory in
 					<foreach collection="thirdCategory" item="thirdCategory" index="index" open="(" close=")" separator=",">

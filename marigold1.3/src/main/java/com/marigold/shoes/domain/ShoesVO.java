@@ -18,6 +18,7 @@ public class ShoesVO {
 	private int[] price;
 	private int heel;
 	private String modelId;
+	private int purchaseCnt;
 	
 	@XmlTransient
 	private String searchKeyword;
@@ -26,8 +27,7 @@ public class ShoesVO {
 		super();
 	}
 
-	public ShoesVO(String firstCategory, String secondCategory, String[] thirdCategory, String[] fourthCategory,
-			String[] brand) {
+	public ShoesVO(String firstCategory, String secondCategory, String[] thirdCategory, String[] fourthCategory, String[] brand) {
 		super();
 		this.firstCategory = firstCategory;
 		this.secondCategory = secondCategory;
@@ -37,8 +37,8 @@ public class ShoesVO {
 	}
 
 	public ShoesVO(String firstCategory, String secondCategory, String[] thirdCategory, String[] fourthCategory,
-			String[] brand, String specialDay, String[] color, String[] material, int[] price, int heel,
-			String modelId) {
+			String[] brand, String specialDay, String[] color, String[] material, int[] price, int heel, String modelId,
+			int purchaseCnt) {
 		super();
 		this.firstCategory = firstCategory;
 		this.secondCategory = secondCategory;
@@ -51,96 +51,82 @@ public class ShoesVO {
 		this.price = price;
 		this.heel = heel;
 		this.modelId = modelId;
+		this.purchaseCnt = purchaseCnt;
 	}
 
 	public String getFirstCategory() {
 		return firstCategory;
 	}
-
 	public void setFirstCategory(String firstCategory) {
 		this.firstCategory = firstCategory;
 	}
-
 	public String getSecondCategory() {
 		return secondCategory;
 	}
-
 	public void setSecondCategory(String secondCategory) {
 		this.secondCategory = secondCategory;
 	}
-
 	public String[] getThirdCategory() {
 		return thirdCategory;
 	}
-
 	public void setThirdCategory(String[] thirdCategory) {
 		this.thirdCategory = thirdCategory;
 	}
-
 	public String[] getFourthCategory() {
 		return fourthCategory;
 	}
-
 	public void setFourthCategory(String[] fourthCategory) {
 		this.fourthCategory = fourthCategory;
 	}
-
 	public String[] getBrand() {
 		return brand;
 	}
-
 	public void setBrand(String[] brand) {
 		this.brand = brand;
 	}
-
 	public String getSpecialDay() {
 		return specialDay;
 	}
-
 	public void setSpecialDay(String specialDay) {
 		this.specialDay = specialDay;
 	}
-
 	public String[] getColor() {
 		return color;
 	}
-
 	public void setColor(String[] color) {
 		this.color = color;
 	}
-
 	public String[] getMaterial() {
 		return material;
 	}
-
 	public void setMaterial(String[] material) {
 		this.material = material;
 	}
-
 	public int[] getPrice() {
 		return price;
 	}
-
 	public void setPrice(int[] price) {
 		this.price = price;
 	}
-
 	public int getHeel() {
 		return heel;
 	}
-
 	public void setHeel(int heel) {
 		this.heel = heel;
 	}
-
 	public String getModelId() {
 		return modelId;
 	}
-
 	public void setModelId(String modelId) {
 		this.modelId = modelId;
 	}
-	
+	public int getPurchaseCnt() {
+		return purchaseCnt;
+	}
+	public void setPurchaseCnt(int purchaseCnt) {
+		this.purchaseCnt = purchaseCnt;
+	}
+
 	
 	@JsonIgnore
 	public String getSearchKeyword() {
@@ -150,7 +136,7 @@ public class ShoesVO {
 		this.searchKeyword = searchKeyword;
 	}
 
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -163,6 +149,7 @@ public class ShoesVO {
 		result = prime * result + Arrays.hashCode(material);
 		result = prime * result + ((modelId == null) ? 0 : modelId.hashCode());
 		result = prime * result + Arrays.hashCode(price);
+		result = prime * result + purchaseCnt;
 		result = prime * result + ((secondCategory == null) ? 0 : secondCategory.hashCode());
 		result = prime * result + ((specialDay == null) ? 0 : specialDay.hashCode());
 		result = prime * result + Arrays.hashCode(thirdCategory);
@@ -200,6 +187,8 @@ public class ShoesVO {
 			return false;
 		if (!Arrays.equals(price, other.price))
 			return false;
+		if (purchaseCnt != other.purchaseCnt)
+			return false;
 		if (secondCategory == null) {
 			if (other.secondCategory != null)
 				return false;
@@ -221,7 +210,7 @@ public class ShoesVO {
 				+ Arrays.toString(thirdCategory) + ", fourthCategory=" + Arrays.toString(fourthCategory) + ", brand="
 				+ Arrays.toString(brand) + ", specialDay=" + specialDay + ", color=" + Arrays.toString(color)
 				+ ", material=" + Arrays.toString(material) + ", price=" + Arrays.toString(price) + ", heel=" + heel
-				+ ", modelId=" + modelId + "]";
+				+ ", modelId=" + modelId + ", purchaseCnt=" + purchaseCnt + ", searchKeyword=" + searchKeyword + "]";
 	}
 
 }

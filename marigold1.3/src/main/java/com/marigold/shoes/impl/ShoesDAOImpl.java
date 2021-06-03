@@ -104,7 +104,11 @@ public class ShoesDAOImpl implements ShoesDAO {
 	}
 
 	@Override
-	public List<ResultVO> buyShoes(ResultVO vo) {
-		return session.selectOne("ShoesDAO.buyShoes", vo);
+	public void updateCnt(ResultVO vo, int purchaseCnt) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("modelId", vo.getModelId());
+		map.put("purchaseCnt", purchaseCnt);
+		
+		session.update("ShoesDAO.updateCnt", map);
 	}
 }

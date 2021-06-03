@@ -9,7 +9,7 @@
 <title>Insert title here</title>
 <script>
 	function fnCalCount(type)  {
-		const resultElement = document.getElementById('quantity');
+		const resultElement = document.getElementById('purchaseCnt');
 
 		let number = resultElement.value;
 
@@ -43,7 +43,7 @@
 		border-left: solid 1px gray;
 		border-right: solid 1px gray;
 	}
-	#quantity{
+	#purchaseCnt{
 		text-align: center;
 	}
 	a{
@@ -142,11 +142,12 @@
 						<td>
 							<c:if test="${ not empty shoes.modelId }">
 								${ shoes.modelId }
+								<input type="text" value="${ shoes.modelId }" id="modelId" name="modelId" hidden="hidden" />
 							</c:if>
 						</td>
 						<td class="quantityCount">
 							<button type ="button" onclick="fnCalCount('m');">-</button>
-        					<input type="text" id="quantity" name="quantity" value="0" readonly="readonly" size="2" />
+        					<input type="text" id="purchaseCnt" name="purchaseCnt" value="0" readonly="readonly" size="2" />
         					<button type="button" onclick="fnCalCount('p');">+</button>
         				</td>
 					</tr>

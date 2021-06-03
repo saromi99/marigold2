@@ -93,9 +93,10 @@ form {
 		<form method="post" action="getCheckList.do">
 			<fieldset id="firstCategory">
 				<legend>성별 및 연령</legend>
+				<label for="A"><input type="radio" name="firstCategory" id="A" value="A" checked="checked" />모두</label>
 				<label for="M"><input type="radio" name="firstCategory" id="M" value="M" />남성</label>
 				<label for="W"><input type="radio" name="firstCategory" id="W" value="W" />여성</label>
-				<label for="U"><input type="radio" name="firstCategory" id="U" value="U" checked="checked" />남녀공용</label>
+				<label for="U"><input type="radio" name="firstCategory" id="U" value="U" />남녀공용</label>
 				<label for="K"><input type="radio" name="firstCategory" id="K" value="K" />키즈</label>
 			</fieldset>
 			

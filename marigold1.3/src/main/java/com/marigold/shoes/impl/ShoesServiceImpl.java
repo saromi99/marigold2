@@ -85,8 +85,8 @@ public class ShoesServiceImpl implements ShoesService {
 	}
 
 	@Override
-	public List<ResultVO> buyShoes(ResultVO vo) {
-		return dao.buyShoes(vo);
+	public void updateCnt(ResultVO vo, int purchaseCnt) {
+		dao.updateCnt(vo, purchaseCnt);
 	}
 
 }

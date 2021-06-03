@@ -12,9 +12,30 @@ public class ResultVO {
 	private int price;
 	private int heel;
 	private String modelId;
+	private int purchaseCnt;
 	
 	public ResultVO() {
+		super();
 	}
+	
+	public ResultVO(String firstCategory, String secondCategory, String thirdCategory, String fourthCategory,
+			String brand, String specialDay, String color, String material, int price, int heel, String modelId,
+			int purchaseCnt) {
+		super();
+		this.firstCategory = firstCategory;
+		this.secondCategory = secondCategory;
+		this.thirdCategory = thirdCategory;
+		this.fourthCategory = fourthCategory;
+		this.brand = brand;
+		this.specialDay = specialDay;
+		this.color = color;
+		this.material = material;
+		this.price = price;
+		this.heel = heel;
+		this.modelId = modelId;
+		this.purchaseCnt = purchaseCnt;
+	}
+	
 	public String getFirstCategory() {
 		return firstCategory;
 	}
@@ -81,14 +102,101 @@ public class ResultVO {
 	public void setModelId(String modelId) {
 		this.modelId = modelId;
 	}
-	
+	public int getPurchaseCnt() {
+		return purchaseCnt;
+	}
+	public void setPurchaseCnt(int purchaseCnt) {
+		this.purchaseCnt = purchaseCnt;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((brand == null) ? 0 : brand.hashCode());
+		result = prime * result + ((color == null) ? 0 : color.hashCode());
+		result = prime * result + ((firstCategory == null) ? 0 : firstCategory.hashCode());
+		result = prime * result + ((fourthCategory == null) ? 0 : fourthCategory.hashCode());
+		result = prime * result + heel;
+		result = prime * result + ((material == null) ? 0 : material.hashCode());
+		result = prime * result + ((modelId == null) ? 0 : modelId.hashCode());
+		result = prime * result + price;
+		result = prime * result + purchaseCnt;
+		result = prime * result + ((secondCategory == null) ? 0 : secondCategory.hashCode());
+		result = prime * result + ((specialDay == null) ? 0 : specialDay.hashCode());
+		result = prime * result + ((thirdCategory == null) ? 0 : thirdCategory.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ResultVO other = (ResultVO) obj;
+		if (brand == null) {
+			if (other.brand != null)
+				return false;
+		} else if (!brand.equals(other.brand))
+			return false;
+		if (color == null) {
+			if (other.color != null)
+				return false;
+		} else if (!color.equals(other.color))
+			return false;
+		if (firstCategory == null) {
+			if (other.firstCategory != null)
+				return false;
+		} else if (!firstCategory.equals(other.firstCategory))
+			return false;
+		if (fourthCategory == null) {
+			if (other.fourthCategory != null)
+				return false;
+		} else if (!fourthCategory.equals(other.fourthCategory))
+			return false;
+		if (heel != other.heel)
+			return false;
+		if (material == null) {
+			if (other.material != null)
+				return false;
+		} else if (!material.equals(other.material))
+			return false;
+		if (modelId == null) {
+			if (other.modelId != null)
+				return false;
+		} else if (!modelId.equals(other.modelId))
+			return false;
+		if (price != other.price)
+			return false;
+		if (purchaseCnt != other.purchaseCnt)
+			return false;
+		if (secondCategory == null) {
+			if (other.secondCategory != null)
+				return false;
+		} else if (!secondCategory.equals(other.secondCategory))
+			return false;
+		if (specialDay == null) {
+			if (other.specialDay != null)
+				return false;
+		} else if (!specialDay.equals(other.specialDay))
+			return false;
+		if (thirdCategory == null) {
+			if (other.thirdCategory != null)
+				return false;
+		} else if (!thirdCategory.equals(other.thirdCategory))
+			return false;
+		return true;
+	}
+
 	@Override
 	public String toString() {
 		return "ResultVO [firstCategory=" + firstCategory + ", secondCategory=" + secondCategory + ", thirdCategory="
 				+ thirdCategory + ", fourthCategory=" + fourthCategory + ", brand=" + brand + ", specialDay="
 				+ specialDay + ", color=" + color + ", material=" + material + ", price=" + price + ", heel=" + heel
-				+ ", modelId=" + modelId + "]";
+				+ ", modelId=" + modelId + ", purchaseCnt=" + purchaseCnt + "]";
 	}
-	
-	
+
 }
